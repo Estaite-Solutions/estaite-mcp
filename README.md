@@ -38,7 +38,7 @@ Get your API key at [estaite.com/developers](https://estaite.com/developers).
 
 - **Property types:** `apt` (apartment), `sfr` (single-family), `ct` (condo/townhome)
 - **Bedroom counts:** 1–5 bedrooms per property type
-- **Geography:** 3,000+ submarkets across all US states and metro areas
+- **Geography:** 1500+ submarkets across the largest MSAs in the United States and expanding
 - **Frequency:** Monthly updates
 
 ## Quick Connect
