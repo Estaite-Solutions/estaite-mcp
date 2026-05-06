@@ -1,49 +1,23 @@
 # Estaite MCP Server
 
-Current US rental market data for AI agents and LLMs via the Model Context Protocol (MCP).
-The Estaite Submarket Index covers 1500+ submarkets across the largest MSAs in the United States and expanding, with monthly-updated rent, vacancy, affordability, and trend data.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![MCP](https://img.shields.io/badge/MCP-2025--03--26-blue)](https://modelcontextprotocol.io)
+[![Free Tier](https://img.shields.io/badge/Free%20Tier-1%2C000%20calls%2Fmo-green)](https://estaite.com/developers)
 
-## Getting Started
+**Add current US rental market intelligence to any AI agent in under 60 seconds.** 1,500+ submarkets, monthly-refreshed rent / vacancy / affordability / trends, 1,000 free calls per month. No credit card required.
 
-- **MCP Server URL:** `https://mcp.estaite.com`
-- **Protocol:** Streamable HTTP (MCP 2025-03-26)
+---
 
-**Authentication** — pass your API key using any of these methods:
+## What you can build
 
-| Method | Example |
-|--------|---------|
-| Header | `x-api-key: YOUR_API_KEY` |
-| Bearer token | `Authorization: Bearer YOUR_API_KEY` |
-| Query param | `https://mcp.estaite.com?key=YOUR_API_KEY` |
+- **Rental market research agents** — Ask Claude *"compare rents in Austin vs Nashville for a 2-bedroom"* and get current, cited data without any data pipeline of your own.
+- **Investment underwriting bots** — Let your AI evaluate cap rates, rent growth, and vacancy trends across hundreds of submarkets in a single conversation.
+- **PropTech AI features** — Drop into your existing app — tenant portals, brokerage tools, CRM enrichment — and your agent suddenly knows real estate.
 
-Get your API key at [estaite.com/developers](https://estaite.com/developers).
+## 30-second install (Claude Desktop)
 
-## Available Tools
+Add this to `claude_desktop_config.json`:
 
-- **Search Submarkets** — Search for submarkets by name. Use this to get a submarket ID before calling metrics tools.
-- **List Submarkets** — List all submarkets with optional filters by state or CBSA.
-- **ZIP Metrics** — Rental metrics for a specific ZIP code — rent, YoY growth, vacancy, listings, and household income.
-- **Submarket Metrics** — Full metrics for a submarket: rent, vacancy, affordability, days on market, saturation, and trend history.
-- **Compare Submarkets** — Side-by-side comparison of two or more submarkets across all key metrics.
-- **Market Snapshot** — Quick summary of a submarket including market condition label, vacancy, and rent trends.
-- **Rent Trends** — Historical rent trend data — MoM, 3M, 6M, 9M, and YoY changes over configurable months.
-- **Affordability** — Rent-to-income ratio and affordability index with trend changes over 3, 6, 9, and 12 months.
-- **Find by Criteria** — Filter submarkets by rent range, YoY growth minimum, vacancy cap, state, or CBSA.
-- **Metro Overview** — Aggregated rent, growth, and vacancy averages for all submarkets within a metro area.
-- **Rank Submarkets** — Rank submarkets within a metro or state by median rent, rent growth, vacancy, affordability, or days on market.
-- **Comparable Submarkets** — Find submarkets with similar rent levels to a given submarket.
-- **Metro Historical Trends** — Monthly aggregated rent and vacancy trends for an entire metro area over up to 12 months.
-
-## Data Coverage
-
-- **Property types:** `apt` (apartment), `sfr` (single-family), `ct` (condo/townhome)
-- **Bedroom counts:** 1–5 bedrooms per property type
-- **Geography:** 1500+ submarkets across the largest MSAs in the United States and expanding
-- **Frequency:** Monthly updates
-
-## Quick Connect
-
-### Claude Desktop
 ```json
 {
   "mcpServers": {
@@ -55,22 +29,96 @@ Get your API key at [estaite.com/developers](https://estaite.com/developers).
 }
 ```
 
-### Claude Code
-```bash
-claude mcp add --transport http estaite "https://mcp.estaite.com" --header "x-api-key:YOUR_API_KEY"
-```
+Restart Claude Desktop. Done. Get your free API key at [estaite.com/developers](https://estaite.com/developers).
 
-### OpenAI SDK
-```python
-resp = client.responses.create(
-    model="gpt-4o",
-    tools=[{
-        "type": "mcp",
-        "server_label": "estaite",
-        "server_url": "https://mcp.estaite.com",
-        "headers": {"x-api-key": "YOUR_API_KEY"},
-        "require_approval": "never",
-    }],
-    input="What is the average rent in Austin, TX?",
-)
-```
+> Setting up a different client? See [`clients/`](./clients) — copy-paste configs for 13 popular MCP clients.
+
+## Example interaction
+
+> **You:** *What's the rental market like in Austin right now?*
+>
+> *Claude finds the right submarket via `search_estaite_submarkets`, then calls `get_estaite_market_snapshot`.*
+>
+> **Claude:** *Austin is currently a renter's market. Vacancy is running above the balanced threshold, median 2BR rent is down year-over-year, and properties are sitting on market longer than the national average. New construction outpaced demand over the past 12 months. Source: estaite.com.*
+
+Every response includes structured data plus a citation back to the source. No hallucinated rent numbers.
+
+## Pricing
+
+| Plan | Monthly Calls | Rate Limit | Price | Best for |
+|------|---------------|------------|-------|----------|
+| **Free** | 1,000 | 2 req/sec | $0 | Hobby projects, testing, demos |
+| **Starter** | 10,000 | 10 req/sec | $49 / mo | MVPs, small production apps |
+| **Pro** | 100,000 | 30 req/sec | $149 / mo | Production AI agents, internal tools |
+| **Enterprise** | Custom | Custom | [Contact us](mailto:success@estaite.com?subject=Enterprise%20MCP%20Plan) | Teams, high-volume agents, SSO |
+
+Free tier requires no credit card. Upgrade in-app any time. Full pricing details at [estaite.com/developers](https://estaite.com/developers).
+
+## All 13 tools
+
+### Discovery
+- **`search_estaite_submarkets`** — Find submarkets by name. Returns IDs to feed into metric tools.
+- **`list_estaite_submarkets`** — Browse all submarkets; filter by state or metro.
+- **`find_estaite_submarkets_by_criteria`** — Filter by rent range, YoY growth, vacancy ceiling, state, or CBSA.
+
+### Single-submarket analysis
+- **`query_estaite_submarket_index`** — Full metrics: rent, vacancy, affordability, days on market, trend history.
+- **`get_estaite_market_snapshot`** — Quick summary: condition label, vacancy, rent direction.
+- **`get_estaite_rent_trends`** — Historical rent change: MoM, 3M, 6M, 9M, YoY.
+- **`get_estaite_affordability`** — Rent-to-income ratio + affordability label (e.g. *Cost Burdened*).
+
+### Comparison & ranking
+- **`compare_estaite_submarkets`** — Side-by-side comparison across all key metrics.
+- **`rank_estaite_submarkets`** — Rank by rent, growth, vacancy, affordability, or days on market.
+- **`get_estaite_comparable_markets`** — Find submarkets with similar rent levels to a given one.
+
+### Geographic
+- **`get_estaite_zip_metrics`** — Rental metrics for a specific ZIP code.
+- **`get_estaite_cbsa_overview`** — Metro-level averages and full submarket list.
+- **`get_estaite_cbsa_trends`** — Monthly aggregated trends for an entire metro.
+
+Detailed input/output schemas in [`llms.txt`](./llms.txt) (also designed to be readable by AI agents auto-discovering the server).
+
+## Client integrations
+
+Copy-paste config for 13 MCP clients. Pick yours:
+
+| | | |
+|---|---|---|
+| [Claude Desktop](./clients/claude-desktop.md) | [Claude Code](./clients/claude-code.md) | [Cursor](./clients/cursor.md) |
+| [VS Code](./clients/vscode.md) | [ChatGPT](./clients/chatgpt.md) | [Copilot Studio](./clients/copilot-studio.md) |
+| [LangChain](./clients/langchain.md) | [LlamaIndex](./clients/llamaindex.md) | [CrewAI](./clients/crewai.md) |
+| [OpenAI SDK](./clients/openai-sdk.md) | [OpenAI Agent Builder](./clients/openai-agent-builder.md) | [n8n](./clients/n8n.md) |
+| [Direct HTTP](./clients/http.md) | | |
+
+## Data coverage
+
+- **Geography:** 1,500+ submarkets across the largest US Metropolitan Statistical Areas — expanding monthly
+- **Property types:** `apt` (apartment), `sfr` (single-family rental), `ct` (condo/townhome)
+- **Bedroom counts:** 1–5 BR per property type
+- **Update frequency:** Monthly
+- **Citations:** Every tool response includes source attribution
+
+## Server details
+
+- **MCP server URL:** `https://mcp.estaite.com`
+- **Protocol:** Streamable HTTP (MCP 2025-03-26)
+- **AI agent manifest:** [`llms.txt`](./llms.txt) — discoverable, machine-readable
+
+## Authentication
+
+Pass your API key with any of:
+
+| Method | Example |
+|--------|---------|
+| Header | `x-api-key: YOUR_API_KEY` |
+| Bearer token | `Authorization: Bearer YOUR_API_KEY` |
+| Query param | `https://mcp.estaite.com?key=YOUR_API_KEY` |
+
+## Get an API key
+
+Free tier — no credit card — at **[estaite.com/developers](https://estaite.com/developers)**.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
