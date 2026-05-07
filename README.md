@@ -3,6 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-2025--03--26-blue)](https://modelcontextprotocol.io)
 [![Free Tier](https://img.shields.io/badge/Free%20Tier-1%2C000%20calls%2Fmo-green)](https://estaite.com/developers)
+[![smithery badge](https://smithery.ai/badge/developer-ziup/estaite-mcp)](https://smithery.ai/servers/developer-ziup/estaite-mcp)
+
 
 **Add current US rental market intelligence to any AI agent in under 60 seconds.** 1,500+ submarkets, monthly-refreshed rent / vacancy / affordability / trends, 1,000 free calls per month. No credit card required.
 
