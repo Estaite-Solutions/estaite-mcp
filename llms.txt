@@ -4,7 +4,9 @@
 ## Server
 - URL: https://mcp.estaite.com
 - Protocol: Streamable HTTP (MCP 2025-03-26)
-- Auth: API key via `?key=YOUR_API_KEY` or `x-api-key` header
+- Auth (recommended): `x-api-key: YOUR_API_KEY` header
+- Auth (alternative): `Authorization: Bearer YOUR_API_KEY` header
+- Note: Avoid passing keys via `?key=` query param. Query strings end up in logs and browser history. Header-based auth is strongly preferred.
 - All tools return JSON responses
 - Use submarket IDs from Discovery tools as inputs to Analysis tools
 
@@ -21,13 +23,13 @@ Get full metrics for a submarket:
   - input: { "query": "string (required)", "msa": "string (optional)" }
   - returns: list of submarket objects with IDs
 
-- list_estaite_submarkets: List all available submarkets. Supports optional filters.
+- list_estaite_submarkets: List available submarkets. Supports optional filters. Returns up to 200 results by default; use filters (state, cbsa_code, cbsa_name) to narrow.
   - input: { "state": "string (optional)", "cbsa_code": "string (optional)", "cbsa_name": "string (optional)" }
-  - returns: full list of submarkets with IDs, names, ZIP codes, and CBSA
+  - returns: list of submarkets with IDs, names, ZIP codes, and CBSA
 
 ### Analysis
 - query_estaite_submarket_index: Full rental metrics for a submarket — price, trends, vacancy, affordability, days on market.
-  - input: { "id": "number (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)", "include": "object (optional)", "history_months": "number (optional)" }
+  - input: { "id": "number (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)", "include": "object (optional)", "history_months": "number 1-24 (optional)" }
   - returns: structured metrics object
 
 - get_estaite_market_snapshot: Quick market summary — condition label, vacancy, rent, and affordability in a single call.
@@ -35,7 +37,7 @@ Get full metrics for a submarket:
   - returns: market condition label (e.g. Landlord's Market), key indicators
 
 - get_estaite_rent_trends: Historical rent trend data with MoM, 3M, 6M, 9M, and YoY changes.
-  - input: { "id": "number (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)", "history_months": "number (optional)" }
+  - input: { "id": "number (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)", "history_months": "number 1-24 (optional)" }
   - returns: trend history array with direction label
 
 - get_estaite_affordability: Rent-to-income ratio, affordability index, and affordability label.
@@ -44,24 +46,24 @@ Get full metrics for a submarket:
 
 ### Comparison & Filtering
 - compare_estaite_submarkets: Side-by-side comparison of multiple submarkets. Accepts names or IDs.
-  - input: { "submarkets": "array of strings or numbers (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)" }
+  - input: { "submarkets": "array of 2 to 10 strings or numbers (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)" }
   - returns: comparison matrix across all key metrics
 
-- find_estaite_submarkets_by_criteria: Filter submarkets by rent range, vacancy, YoY growth, state, or CBSA.
-  - input: { "min_rent": "number (optional)", "max_rent": "number (optional)", "min_yoy_growth": "number (optional)", "max_vacancy": "number (optional)", "state": "string (optional)", "cbsa_name": "string (optional)" }
+- find_estaite_submarkets_by_criteria: Filter submarkets by rent range, vacancy, YoY growth, state, or CBSA. Returns up to 50 results.
+  - input: { "min_rent": "number (optional)", "max_rent": "number (optional)", "min_yoy_growth": "number (optional)", "max_vacancy": "number (optional)", "state": "string (optional)", "cbsa_name": "string (optional)", "limit": "number 1-50 (optional)" }
   - returns: list of matching submarkets with key metrics
 
-- rank_estaite_submarkets: Rank submarkets within a metro or state by a chosen metric.
-  - input: { "metric": "median_rent|rent_growth|vacancy|affordability|dom (optional)", "cbsa": "string (optional)", "state": "string (optional)", "order": "asc|desc (optional)", "limit": "number (optional)" }
+- rank_estaite_submarkets: Rank submarkets within a metro or state by a chosen metric. Returns up to 50 results.
+  - input: { "metric": "median_rent|rent_growth|vacancy|affordability|dom (optional)", "cbsa": "string (optional)", "state": "string (optional)", "order": "asc|desc (optional)", "limit": "number 1-50 (optional)" }
   - returns: ranked list of submarkets
 
 ### Geographic
 - get_estaite_zip_metrics: Rental metrics by ZIP code — median rent, YoY growth, vacancy, saturation, household income.
-  - input: { "zip": "string (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)" }
+  - input: { "zip": "string, 5 digits (required)", "property_type": "apt|sfr|ct (optional)", "bedrooms": "number 1-5 (optional)" }
   - returns: ZIP-level rental metrics
 
-- get_estaite_comparable_markets: Find submarkets with similar rent levels to a given submarket.
-  - input: { "id": "number (required)", "limit": "number (optional)" }
+- get_estaite_comparable_markets: Find submarkets with similar rent levels to a given submarket. Returns up to 20 results.
+  - input: { "id": "number (required)", "limit": "number 1-20 (optional)" }
   - returns: list of comparable submarkets
 
 ### Metro (CBSA)
@@ -70,7 +72,7 @@ Get full metrics for a submarket:
   - returns: metro averages and submarket list
 
 - get_estaite_cbsa_trends: Monthly aggregated rent and vacancy trends for a metro over time.
-  - input: { "cbsa": "string (required)", "history_months": "number (optional, max 12)" }
+  - input: { "cbsa": "string (required)", "history_months": "number 1-12 (optional)" }
   - returns: monthly trend history for the metro
 
 ## Common Workflows
