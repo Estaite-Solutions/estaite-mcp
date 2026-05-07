@@ -60,7 +60,7 @@ Free tier requires no credit card. Upgrade in-app any time. Full pricing details
 
 ### Discovery
 - **`search_estaite_submarkets`** — Find submarkets by name. Returns IDs to feed into metric tools.
-- **`list_estaite_submarkets`** — Browse all submarkets; filter by state or metro.
+- **`list_estaite_submarkets`** — Browse submarkets; filter by state or metro. Returns up to 200 results.
 - **`find_estaite_submarkets_by_criteria`** — Filter by rent range, YoY growth, vacancy ceiling, state, or CBSA.
 
 ### Single-submarket analysis
@@ -70,7 +70,7 @@ Free tier requires no credit card. Upgrade in-app any time. Full pricing details
 - **`get_estaite_affordability`** — Rent-to-income ratio + affordability label (e.g. *Cost Burdened*).
 
 ### Comparison & ranking
-- **`compare_estaite_submarkets`** — Side-by-side comparison across all key metrics.
+- **`compare_estaite_submarkets`** — Side-by-side comparison across all key metrics. Up to 10 submarkets per call.
 - **`rank_estaite_submarkets`** — Rank by rent, growth, vacancy, affordability, or days on market.
 - **`get_estaite_comparable_markets`** — Find submarkets with similar rent levels to a given one.
 
@@ -109,18 +109,25 @@ Copy-paste config for 13 MCP clients. Pick yours:
 
 ## Authentication
 
-Pass your API key with any of:
+Pass your API key with one of:
 
-| Method | Example |
-|--------|---------|
-| Header | `x-api-key: YOUR_API_KEY` |
-| Bearer token | `Authorization: Bearer YOUR_API_KEY` |
-| Query param | `https://mcp.estaite.com?key=YOUR_API_KEY` |
+| Method | Example | Notes |
+|--------|---------|-------|
+| **Header (recommended)** | `x-api-key: YOUR_API_KEY` | Preferred. Keys stay out of logs and browser history. |
+| Bearer token | `Authorization: Bearer YOUR_API_KEY` | Standard Bearer scheme. |
+| Query param (discouraged) | `https://mcp.estaite.com?key=YOUR_API_KEY` | Keys leak via server logs, browser history, and screenshots. Use for quick testing only. |
+
+### API key security
+
+Treat your API key like a password:
+- Never commit it to git, and don't paste it into URLs you'll share publicly
+- Rotate it immediately at [estaite.com/developers](https://estaite.com/developers) if exposed
+- Use environment variables, not hardcoded strings, when integrating
 
 ## Get an API key
 
-Free tier — no credit card — at **[estaite.com/developers](https://estaite.com/developers)**.
+Free tier, no credit card, at **[estaite.com/developers](https://estaite.com/developers)**.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+The configs, examples, and docs in this repository are MIT licensed (see [LICENSE](./LICENSE)). The Estaite MCP server itself is a hosted commercial service; see [pricing](https://estaite.com/developers) for plan details.
