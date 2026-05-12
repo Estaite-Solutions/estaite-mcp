@@ -113,9 +113,9 @@ Pass your API key with one of:
 
 | Method | Example | Notes |
 |--------|---------|-------|
-| **Header (recommended)** | `x-api-key: YOUR_API_KEY` | Preferred. Keys stay out of logs and browser history. |
-| Bearer token | `Authorization: Bearer YOUR_API_KEY` | Standard Bearer scheme. |
-| Query param (discouraged) | `https://mcp.estaite.com?key=YOUR_API_KEY` | Keys leak via server logs, browser history, and screenshots. Use for quick testing only. |
+| **Header (recommended)** | `x-api-key: YOUR_API_KEY` | Preferred for code-driven clients (curl, custom agents, MCP SDKs). |
+| Bearer token | `Authorization: Bearer YOUR_API_KEY` | Standard Bearer scheme. Used by clients that complete the OAuth 2.1 flow. |
+| Query param | `https://mcp.estaite.com?key=YOUR_API_KEY` | Convenient for clients that only accept a URL (Claude Desktop Connectors, ChatGPT custom GPTs). |
 
 ### API key security
 
