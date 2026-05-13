@@ -1,12 +1,14 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Estaite-Solutions/estaite-mcp",
-  "description": "Current US rental market data for AI agents: 1,500+ submarkets, monthly rent + vacancy + trends.",
+  "title": "Estaite — Real Estate Rental Market Data",
+  "description": "Real estate and rental market data for AI agents. Current US rental prices, vacancy, saturation, and year-over-year trends across 1,500+ submarkets — refreshed monthly.",
+  "websiteUrl": "https://estaite.com/developers",
   "repository": {
     "url": "https://github.com/Estaite-Solutions/estaite-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "remotes": [
     {
       "type": "streamable-http",
