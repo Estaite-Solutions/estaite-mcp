@@ -57,7 +57,11 @@ Every response includes structured data plus a citation back to the source. No h
 
 Free tier requires no credit card. Upgrade in-app any time. Full pricing details at [estaite.com/developers](https://estaite.com/developers).
 
-## All 13 tools
+## Access levels
+
+Which tools a key can call depends on its level. Free and the developer plans get the single-neighborhood tools (search, snapshot, full metrics, ZIP, metro averages); developer plans add the history tools and 12-month series. The comparison, ranking, screening and list tools are part of the Estaite property management subscription and work inside the subscriber's own market. Every result carries a `credit_line` naming the firm that publishes the neighborhood and the data month; a cell with fewer than 8 listings comes back `thin` with no figure. Full table: [docs.estaite.com/reference/pricing](https://docs.estaite.com/reference/pricing/#access-levels).
+
+## The 15 tools
 
 ### Discovery
 - **`search_estaite_submarkets`** — Find submarkets by name. Returns IDs to feed into metric tools.

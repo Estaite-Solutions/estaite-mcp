@@ -9,6 +9,8 @@
 - Note: Avoid passing keys via `?key=` query param. Query strings end up in logs and browser history. Header-based auth is strongly preferred.
 - All tools return JSON responses
 - Use submarket IDs from Discovery tools as inputs to Analysis tools
+- Access levels: a Free key has search, snapshot, full metrics (current month), ZIP and metro averages. Developer plans add rent trends, affordability, metro trends and 12-month history. Comparisons, rankings, screening, comparable markets and lists are Estaite-subscriber tools, inside the subscriber's own market. tools/list shows what a key may call.
+- Every result carries credit_line (the publishing firm and the data month); end answers with it. Cells under the listing floor (8) come back thin with no figure.
 
 ## Example
 

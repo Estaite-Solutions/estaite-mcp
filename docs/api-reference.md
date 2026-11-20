@@ -2,7 +2,7 @@
 
 This document is the public reference for the Estaite Submarket Index MCP server. It catalogs every tool the server exposes, the inputs each tool accepts, and the exact response shape it returns. It is intended for developers integrating the Estaite tools into MCP-compatible clients (Claude Desktop, Claude Code, custom agents, etc.) and for engineers consuming the underlying HTTPS endpoint directly.
 
-The Estaite Submarket Index is a US rental dataset covering 1,500+ submarkets across the largest US Metropolitan Statistical Areas. Pricing, vacancy, saturation, days-on-market, and affordability metrics are exposed via 13 tools.
+The Estaite Submarket Index is a US rental dataset covering 1,500+ submarkets across the largest US Metropolitan Statistical Areas. Pricing, vacancy, saturation, days-on-market, and affordability metrics are exposed via 15 tools. Which tools a key can call depends on its access level (Free, Developer, Estaite subscriber, Enterprise); see https://docs.estaite.com/reference/pricing/#access-levels. Every result carries a `credit_line` (publishing firm + data month) and applies a listing floor of 8 (cells under it return `thin: true` with no figure).
 
 ## Server
 
