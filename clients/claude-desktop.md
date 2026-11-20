@@ -11,7 +11,9 @@ Name:    Estaite
 URL:     https://mcp.estaite.com?key=YOUR_API_KEY
 ```
 
-**Step 3** — Click **Add**. The Estaite tools are immediately available in any chat.
+**Step 3** — If Claude shows authentication options, pick **No sign-in** (the key is in the URL). Or paste the URL without `?key=`, keep **Sign in now** and **Register automatically**, and paste the key on the Estaite sign-in page Claude opens.
+
+**Step 4** — Click **Add**. The Estaite tools are immediately available in any chat.
 
 ---
 
